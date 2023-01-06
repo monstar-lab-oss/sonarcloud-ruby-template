@@ -1,0 +1,2 @@
+def this_will_cause_rubocop_errors
+end
