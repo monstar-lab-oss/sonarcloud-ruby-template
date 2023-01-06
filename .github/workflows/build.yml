@@ -25,6 +25,10 @@ jobs:
         run: bundle exec rubocop --format progress --format json --out rubocop.json # Output to stdout, and JSON (For SonarCloud)
       - name: Run rpsec
         run: bundle exec rspec
+      - name: Fix code coverage paths
+        working-directory: ./coverage
+        run: | # The SimpleCov paths needs to be fixed for SonarCloud to be able to find them: https://stackoverflow.com/a/74279849
+          sed -i 's@'$GITHUB_WORKSPACE'@/github/workspace/@g' coverage.json
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
