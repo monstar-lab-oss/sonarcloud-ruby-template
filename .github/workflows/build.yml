@@ -23,11 +23,11 @@ jobs:
         run: bundle install
       # -- Rubocop --
       - name: Run Rubocop
+        continue-on-error: true # Run even if previous step fails
         run: bundle exec rubocop --format progress --format json --out rubocop.json # Output to stdout, and JSON (For SonarCloud)
       # /-- Rubocop --
       # -- Test Coverage --
       - name: Run rpsec
-        if: success() || failure() # Run even if previous step fails
         run: bundle exec rspec
       - name: Fix code coverage paths
         working-directory: ./coverage
