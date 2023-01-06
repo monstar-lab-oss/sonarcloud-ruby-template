@@ -9,4 +9,10 @@ describe 'Main' do
       expect(hello_world).to eq 'Hello world!'
     end
   end
+
+  context 'when calling hello_tokyo' do
+    it 'returns Hello Tokyo' do
+      expect(hello_tokyo).to eq 'Hello Tokyo!'
+    end
+  end
 end
