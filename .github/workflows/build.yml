@@ -27,6 +27,7 @@ jobs:
       # /-- Rubocop --
       # -- Test Coverage --
       - name: Run rpsec
+        if: success() || failure() # Run even if previous step fails
         run: bundle exec rspec
       - name: Fix code coverage paths
         working-directory: ./coverage
