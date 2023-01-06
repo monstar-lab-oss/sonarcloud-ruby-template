@@ -10,9 +10,19 @@ jobs:
     name: SonarCloud
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - name: Set up Ruby
+          uses: ruby/setup-ruby@359bebbc29cbe6c87da6bc9ea3bc930432750108
+          with:
+            ruby-version: '3.1'
+            bundler-cache: true # Cache gem dependencies between runs, uses a hash of your gemfile.lock and the Ruby
+                                # version are used as the cache key. Changing gemfile.lock will invalidate the cache.
+      - name: Install dependencies
+          run: bundle install
+      - name: Run Rubocop
+          run: rubocop --format progress --format json --out rubocop.json # Output to stdout, and JSON (For SonarCloud)
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
