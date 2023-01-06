@@ -23,6 +23,8 @@ jobs:
         run: bundle install
       - name: Run Rubocop
         run: bundle exec rubocop --format progress --format json --out rubocop.json # Output to stdout, and JSON (For SonarCloud)
+      - name: Run rpsec
+        run: bundle exec rspec
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
